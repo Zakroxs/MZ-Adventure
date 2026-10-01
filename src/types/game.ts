@@ -27,7 +27,10 @@ export type ResourceType =
 
 export type EventType =
   | 'cosecha' | 'bandolerismo' | 'peste' | 'festival'
-  | 'comercio' | 'reclutamiento' | 'tormenta' | 'descubrimiento';
+  | 'comercio' | 'reclutamiento' | 'tormenta' | 'descubrimiento'
+  // FASE 2 — eventos narrativos de combate y guerra
+  | 'guerra' | 'duelo' | 'emboscada' | 'asedio' | 'resurreccion' | 'bounty'
+  | 'ejecucion' | 'construccion_completada';
 
 // ============================================================
 // RECURSOS Y EDIFICIOS
@@ -106,6 +109,7 @@ export interface Realm {
   counties: FeudalTerritory[];
   marches: FeudalTerritory[];
   accent: string; // color HSL
+  icon: string;   // emoji representativo del reino (🦁 💰 ⛰️ 🌲 ⚡) — se usa en el mapa, asedios y listas desplegables
   totalCities: number;
   totalSettlements: number;
   kingName: string;

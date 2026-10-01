@@ -70,6 +70,7 @@ export interface Combatant {
   id: string;
   name: string;
   type: 'jugador' | 'enemigo' | 'criatura' | 'npc';
+  level?: number; // nivel del combatiente (opcional: si falta, el motor usa 1)
   hp: number;
   maxHp: number;
   mana: number;

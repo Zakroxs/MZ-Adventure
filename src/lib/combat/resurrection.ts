@@ -41,8 +41,9 @@ export function waitHoursAfterDeath(hasStone: boolean, hasRealm: boolean): numbe
   return hasRealm ? 5 : 8;
 }
 
-/** Efecto de resurrección con piedra: 50% HP/MP. */
-export function applyResurrection(hp: number, maxHp: number, mana: number, maxMana: number, effectivenessBonus = 0): { hp: number; mana: number } {
+/** Efecto de resurrección con piedra: 50% HP/MP (+bonus de efectividad eclesiástica).
+ *  Recibe el máximo de vida/maná; devuelve los valores restaurados. */
+export function applyResurrection(maxHp: number, maxMana: number, effectivenessBonus = 0): { hp: number; mana: number } {
   const eff = Math.min(1, 0.5 + effectivenessBonus); // +5% por sinergia eclesiástica
   return { hp: Math.round(maxHp * eff), mana: Math.round(maxMana * eff) };
 }

@@ -22,6 +22,7 @@ interface SynergyCarrier {
   synergy?: CombatBonuses;
   characterRef?: Character;
   settlementsRef?: Settlement[];
+  equipmentBonus?: number; // suma de stats del equipo → afecta velocidad de turno
 }
 type CarrierCombatant = Combatant & SynergyCarrier;
 
@@ -61,21 +62,24 @@ export function characterToCombatant(
   settlements?: Settlement[],
 ): CarrierCombatant {
   const b = bonuses ?? calculateCombatBonuses(c, settlements);
+  // Bonus de equipo aplicado a las stats efectivas en combate (destreza → velocidad de turno)
   const equipmentBonus = c.progress.equipment.reduce(
     (acc, e) => acc + Object.values(e.stats).reduce((s, v) => s + (v ?? 0), 0),
     0,
   );
+  const equipDexterity = c.progress.equipment.reduce((acc, e) => acc + (e.stats.destreza ?? 0), 0);
   const maxHp = Math.round((80 + c.stats.vitalidad * 12 + c.level * 6) * b.hpMultiplier);
   const maxMana = Math.round((40 + c.stats.inteligencia * 8 + c.stats.sabiduria * 4) * b.manaMultiplier);
   return {
     id: c.id,
     name: `${c.name} ${c.surname}`,
     type: 'jugador',
+    level: c.level, // nivel del personaje → orden de turno
     hp: maxHp,
     maxHp,
     mana: maxMana,
     maxMana,
-    stats: { ...c.stats },
+    stats: { ...c.stats, destreza: c.stats.destreza + equipDexterity },
     actions: actionsForCharacter(c),
     equippedItems: c.progress.equipment,
     statusEffects: [],
@@ -86,8 +90,7 @@ export function characterToCombatant(
     synergy: b,
     characterRef: c,
     settlementsRef: settlements ?? [],
-    // Bonus de equipo aplicado a las stats efectivas en combate
-    ...(equipmentBonus > 0 ? {} : {}),
+    equipmentBonus,
   };
 }
 
@@ -139,15 +142,28 @@ export function opponentToCombatant(o: OpponentOffer): Combatant {
 // Inicio de combate
 // ------------------------------------------------------------
 
+// Opciones al iniciar un combate. `level` es OPCIONAL: si no se pasa,
+// el motor usa el nivel del propio personaje (o 1). Así nunca falla por falta de dato.
+interface CreateCombatOpts {
+  level?: number;          // nivel del combate (para orden de turno)
+  ambush?: boolean;        // true si el enemigo emboscó (turno extra gratuito)
+  betAmount?: number;      // apuesta de arena en oro
+  arenaId?: string;        // arena donde ocurre el duelo
+  duelType?: CombatState['duelType']; // reglas del duelo formal
+  enemyTemplateId?: string;           // id de plantilla enemiga (PvE)
+}
+
 export function createCombat(
   mode: CombatMode,
   player: Combatant,
   enemy: Combatant,
-  opts: { level: number; ambush?: boolean; betAmount?: number; arenaId?: string; duelType?: CombatState['duelType']; enemyTemplateId?: string } = {},
+  opts: CreateCombatOpts = {},
 ): CombatState {
+  // Nivel efectivo: el pasado por llamada, o el del jugador, o 1 como mínimo.
+  const level = opts.level ?? player.level ?? 1;
   // Orden por velocidad; empates → suerte
-  const ps = turnSpeed(player.stats, opts.level);
-  const es = turnSpeed(enemy.stats, Math.max(1, opts.level - 1));
+  const ps = turnSpeed(player.stats, level);
+  const es = turnSpeed(enemy.stats, Math.max(1, level - 1));
   const order =
     ps === es
       ? player.stats.suerte >= enemy.stats.suerte ? [player.id, enemy.id] : [enemy.id, player.id]

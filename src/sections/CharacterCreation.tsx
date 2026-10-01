@@ -6,7 +6,7 @@ import { CLASSES, getClass } from '../data/classes';
 import { checkSurnameInOtherRealms, getHouseBySurname, registerHouse } from '../data/nobleHouses';
 import { emptyResources } from '../lib/economy';
 import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardFooter } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';

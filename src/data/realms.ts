@@ -158,6 +158,7 @@ interface RealmBlueprint {
   description: string;
   lore: string;
   accent: string;
+  icon: string; // emoji del reino (aparece en el mapa, asedios y selectores)
   kingName: string;
   royalHouse: string;
   capitalName: string;
@@ -172,35 +173,35 @@ const BLUEPRINTS: RealmBlueprint[] = [
     id: 'aldoria', name: 'Aldoria', motto: 'Donde el hierro forja el destino',
     description: 'Reino equilibrado de caballeros y forjas célebres, corazón político del continente.',
     lore: 'Fundado tras la Guerra de las Tres Coronas por Aldric el Justo, Aldoria ha convertido la disciplina y el acero en su sello. Sus torres blancas vigilan llanuras fértiles donde cada aldeano conoce el valor de una promesa cumplida.',
-    accent: 'hsl(45 65% 52%)', kingName: 'Aldric III el Justo', royalHouse: 'Valmont', capitalName: 'Aldoria la Blanca',
+    accent: 'hsl(45 65% 52%)', icon: '🦁', kingName: 'Aldric III el Justo', royalHouse: 'Valmont', capitalName: 'Aldoria la Blanca',
     duchies: 3, counties: 2, marches: 2, seed: 101,
   },
   {
     id: 'valdris', name: 'Valdris', motto: 'Las rutas doradas nos pertenecen',
     description: 'Potencia comercial de puertos francos y ferias permanentes, gobernada por casas mercantiles.',
     lore: 'Valdris no se conquistó con espadas sino con balanzas. Sus reyes-factor controlan las calzadas que cruzan el continente, y en sus lonjas se decide el precio del pan, la sal y hasta la guerra.',
-    accent: 'hsl(38 60% 45%)', kingName: 'Valdemar el Próspero', royalHouse: 'Aurum', capitalName: 'Aurival',
+    accent: 'hsl(38 60% 45%)', icon: '💰', kingName: 'Valdemar el Próspero', royalHouse: 'Aurum', capitalName: 'Aurival',
     duchies: 2, counties: 3, marches: 1, seed: 202,
   },
   {
     id: 'kethmar', name: 'Kethmar', motto: 'La piedra recuerda lo que la carne olvida',
     description: 'Reino montañés de minas inagotables, forjas rúnicas y fortalezas excavadas en la roca viva.',
     lore: 'Bajo las cumbres de Kethmar se tallaron salones que ni el tiempo puede derribar. Su rey, Thorgar Barbadepiedra, gobierna desde un trono de granito labrado por sus propios ancestros.',
-    accent: 'hsl(25 30% 40%)', kingName: 'Thorgar Barbadepiedra', royalHouse: 'Forjaverde', capitalName: 'Yunque Mayor',
+    accent: 'hsl(25 30% 40%)', icon: '⛰️', kingName: 'Thorgar Barbadepiedra', royalHouse: 'Forjaverde', capitalName: 'Yunque Mayor',
     duchies: 2, counties: 2, marches: 2, seed: 303,
   },
   {
     id: 'sylvanna', name: 'Sylvanna', motto: 'Bajo el dosel, todos somos iguales',
     description: 'Confederación forestal donde la corona comparte poder con los consejos de clanes.',
     lore: 'Sylvanna creció con el bosque: sus ciudades no se construyen, se cultivan. La Reina Elandra Hojaverde escucha antes de hablar, y su corte se reúne bajo el Roble Coronal cada equinoccio.',
-    accent: 'hsl(100 20% 38%)', kingName: 'Reina Elandra Hojaverde', royalHouse: 'Raízprofunda', capitalName: 'Doselargo',
+    accent: 'hsl(100 20% 38%)', icon: '🌲', kingName: 'Reina Elandra Hojaverde', royalHouse: 'Raízprofunda', capitalName: 'Doselargo',
     duchies: 2, counties: 2, marches: 1, seed: 404,
   },
   {
     id: 'drakkar', name: 'Drakkar', motto: 'El trueno anuncia a los fuertes',
     description: 'Reino guerrero de fiordos y salones de batalla, donde el honor se mide en cicatrices.',
     lore: 'Los clanes de Drakkar juraron lealtad a Ragnar Tormentson tras sobrevivir al Invierno del Lobo. Desde entonces, sus dragares navegan ríos y mares, y sus jarls gobiernan desde atalayas batidas por el viento.',
-    accent: 'hsl(220 25% 42%)', kingName: 'Ragnar Tormentson', royalHouse: 'Maresbravo', capitalName: 'Truenohogar',
+    accent: 'hsl(220 25% 42%)', icon: '⚡', kingName: 'Ragnar Tormentson', royalHouse: 'Maresbravo', capitalName: 'Truenohogar',
     duchies: 2, counties: 2, marches: 2, seed: 505,
   },
 ];
@@ -254,7 +255,7 @@ function buildRealm(bp: RealmBlueprint): Realm {
 
   return {
     id: bp.id, name: bp.name, motto: bp.motto, description: bp.description, lore: bp.lore,
-    capital, duchies, counties, marches, accent: bp.accent,
+    capital, duchies, counties, marches, accent: bp.accent, icon: bp.icon,
     totalCities, totalSettlements, kingName: bp.kingName, royalHouse: bp.royalHouse,
   };
 }

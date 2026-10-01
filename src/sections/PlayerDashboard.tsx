@@ -42,7 +42,8 @@ export default function PlayerDashboard({ character, playerSettlements, events, 
     const { character: updated, deed } = promote(character);
     if (deed) {
       onCharacterChange(updated);
-      setPromotionMsg(`¡Has ascendido a ${getRank(deed.title.split(' a ')[1] ?? '')?.name ?? updated.rank}! ${deed.title}`);
+      // Usamos directamente el nuevo rango del personaje (más fiable que leer el título de la hazaña).
+      setPromotionMsg(`¡Has ascendido a ${getRank(updated.rank).name}! ${deed.title}`);
       setTimeout(() => setPromotionMsg(null), 5000);
     }
   };
