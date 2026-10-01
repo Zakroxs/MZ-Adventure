@@ -1,8 +1,32 @@
-#Juego de Rol
-Un pequeño juego de rol en tiempo real
+# React + TypeScript + Vite
 
-#Estilo de combate
-Un estilo simple portarnos dónde eligues en qué dirección atacar y tú rival elige en qué editeccion esquivar.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-#Historia
-Caes en una isla flotante, debes investigar porque llegaste hay pero mientras haces eso descubres un vasto mundo de fantasía. algunos deciden quedarse para siempre en este mundo y otros buscan la manera de regresar a casa...
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+```
+
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.

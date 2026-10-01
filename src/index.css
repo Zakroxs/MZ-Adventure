@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   ESTILO "PERGAMINO Y BOSQUE" — FASE 1
+   ============================================================ */
+
+@layer base {
+  :root {
+    --background: 28 11% 15%;            /* #2A2520 marrón oscuro */
+    --foreground: 44 47% 90%;            /* #F4ECD8 crema */
+    --card: 96 21% 20%;                  /* #2F3D29 verde oliva oscuro */
+    --card-foreground: 44 47% 90%;
+    --primary: 45 65% 52%;               /* dorado */
+    --primary-foreground: 28 20% 10%;
+    --secondary: 96 15% 28%;
+    --secondary-foreground: 44 47% 90%;
+    --muted: 28 10% 22%;
+    --muted-foreground: 40 20% 65%;
+    --accent: 45 45% 35%;
+    --accent-foreground: 44 47% 92%;
+    --destructive: 0 55% 40%;
+    --destructive-foreground: 44 47% 92%;
+    --border: 40 11% 25%;                /* #4A4538 marrón medio */
+    --input: 40 11% 25%;
+    --ring: 45 65% 52%;
+    --radius: 0.1875rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    background-image:
+      radial-gradient(ellipse at top, hsl(96 21% 16% / 0.5), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* Texto dorado con gradiente vertical */
+  .text-gold-gradient {
+    background: linear-gradient(180deg, #f5e6b8 0%, #c9a227 55%, #8a6d1f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Ornamento: línea decorativa con gradiente dorado */
+  .ornament {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(45 65% 52% / 0.7), transparent);
+    position: relative;
+  }
+  .ornament::after {
+    content: '❧';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: hsl(45 65% 52%);
+    background: hsl(28 11% 15%);
+    padding: 0 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  /* Marco de pergamino para paneles */
+  .parchment-panel {
+    @apply rounded-md border border-border bg-card/80 shadow-gold backdrop-blur-[1px];
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  .stat-label {
+    @apply text-xs uppercase tracking-widest text-muted-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.35s ease-out both;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: hsl(45 40% 40% / 0.5); border-radius: 3px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+}
